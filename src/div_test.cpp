@@ -23,6 +23,12 @@ static T myDiv(T x, T y){
 	return x / y;
 }
 
+static T myMod(T x, T y){
+	if(!y) return 0;
+	if(x == numeric_limits<T>::min() && y == -1) return 0;
+	return x % y;
+}
+
 int main(){
 	// The bad guys
 	vector<T> v = {numeric_limits<T>::min(), -1, 0, 1, numeric_limits<T>::max()};
@@ -34,8 +40,8 @@ int main(){
 
 	for(auto&& x : v){
 		for(auto&& y : v){
-			std::cout << x << " / " << y << " = " << std::flush;
-			std::cout << myDiv(x, y) << std::endl;
+			std::cout << x << " % " << y << " = " << std::flush;
+			std::cout << myMod(x, y) << std::endl;
 		}
 	}
 }

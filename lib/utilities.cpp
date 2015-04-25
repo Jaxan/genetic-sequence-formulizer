@@ -18,6 +18,13 @@ int divi(int x, int y){
 	return x / y;
 }
 
+
+int modi(int x, int y){
+	if(!y) return 0;
+	if(x == numeric_limits<int>::min() && y == -1) return 0;
+	return x % y;
+}
+
 // exponentiation by squaring
 int powi(int base, int exp){
 	if(exp < 0) return 0;

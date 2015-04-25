@@ -29,7 +29,7 @@ int main(int argc, char** argv){
 	// TODO: make these program options
 	const auto genome_size = 16;
 	const auto population = 10;
-	const auto generations = 1000001 / population;
+	const auto generations = 2000001 / population;
 
 	auto evolver = create_evolver(population, genome_size);
 	evolver.goal = vm["input"].as<std::vector<int>>();
@@ -49,9 +49,11 @@ int main(int argc, char** argv){
 	// SHOW!
 	auto & best_genome = evolver.current_generation[0].first;
 	std::cout << "formula:\t" << best_genome.as_formula() << std::endl;
-	std::cout << "continuation:\t";
-	for(int i = 0; i < 50; ++i){
-		std::cout << best_genome.evaluate_on(i) << ", ";
+	std::cout << "continuation:\n";
+	static const std::vector<const int> inputs = {2003, 1337, 7877, 5732, 8315, 4466, 0354, 8923, 8888, 0000, 4059, 2403};
+	static const std::vector<const int> outputs = {2, 4, 3, 4, 3, 0, 2, 2, 0, 0, 1, -1};
+	for(int i = 0; i < inputs.size(); ++i){
+		std::cout << inputs[i] << " = " << outputs[i] << " = " << best_genome.evaluate_on(i) << ", " << std::endl;
 	}
 	std::cout << std::endl;
 }

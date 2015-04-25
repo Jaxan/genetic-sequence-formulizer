@@ -7,9 +7,12 @@
 #include <iostream>
 
 static Score score(const std::vector<int>& goal, Genome const & genome){
+	static const std::vector<const int> inputs = {2003, 1337, 7877, 5732, 8315, 4466, 0354, 8923, 8888, 0000, 4059};
+	static const std::vector<const int> outputs = {2, 4, 3, 4, 3, 0, 2, 2, 0, 0, 1};
+
 	Score ss = 0;
-	for(int i = 0; i < goal.size(); ++i) {
-		Score error = goal[i] - genome.evaluate_on(i);
+	for(int i = 0; i < inputs.size(); ++i) {
+		Score error = outputs[i] - genome.evaluate_on(inputs[i]);
 		ss += error * error;
 	}
 	return ss;

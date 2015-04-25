@@ -31,6 +31,7 @@ std::ostream & operator<<(std::ostream& out, Gen const & g){
 		case Gen::kMult: return out << "[* " << g.x << ' ' << g.y << ']';
 		case Gen::kDiv: return out << "[/ " << g.x << ' ' << g.y << ']';
 		case Gen::kPow: return out << "[^ " << g.x << ' ' << g.y << ']';
+		case Gen::kMod: return out << "[% " << g.x << ' ' << g.y << ']';
 		default: return out << "[error]";
 	}
 }
@@ -75,6 +76,7 @@ static int calc_op(Gen::Type const & op, int const & x, int const & y){
 		case Gen::kMult: return x * y;
 		case Gen::kDiv: return divi(x, y);
 		case Gen::kPow: return powi(x, y);
+		case Gen::kMod: return modi(x, y);
 		default: return 0;
 	}
 }
@@ -103,7 +105,7 @@ using Params = Uniform::param_type;
 
 static Generator generator{0};
 static Uniform distribution;
-static auto random_type = std::bind(distribution, generator, Params(0, Gen::kTypes-1));
+static auto random_type = std::bind(distribution, generator, Params(0, Gen::kDiv));
 static auto random_const = std::bind(distribution, generator, Params(-20, 20));
 static auto random_node = [](int n){ return distribution(generator, Params(0, n-1)); };
 
@@ -219,6 +221,7 @@ std::string Genome::as_formula() const{
 			case Gen::kMult: results[i] = x + "*" + y; break;
 			case Gen::kDiv: results[i] = x + "/" + y; break;
 			case Gen::kPow: results[i] = x + "^" + y; break;
+			case Gen::kMod: results[i] = x + "%" + y; break;
 			default: results[i] = "err";
 		}
 	}
