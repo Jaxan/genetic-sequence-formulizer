@@ -19,6 +19,7 @@ struct Gen {
 		kAdd,
 		kSub,
 		kMult,
+		kMod,
 		kDiv,
 		kPow,
 		kTypes
